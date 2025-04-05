@@ -3,8 +3,11 @@ const path = require("path");
 const { checkAudio } = require("./modules/checkAudio");
 const { processVideo } = require("./modules/processVideo");
 const { saveVideo } = require("./modules/helpers");
+const fs = require("fs");
 
 const fileName = process.argv[2]; // The video file name passed as an argument
+const filePath = path.join(process.env.PATH_TO_UPLOADED_VIDEOS, fileName);
+const directoryPath = path.dirname(filePath);
 console.log("--- 1 inside VIdeo UPloader ---");
 console.log("--- 2 fileName: ", fileName);
 if (!fileName) {
@@ -14,7 +17,15 @@ if (!fileName) {
   process.exit(1);
 }
 
-const filePath = path.join(process.env.PATH_TO_UPLOADED_VIDEOS, fileName);
+console.log("--- Checking if directory exists ---");
+if (!fs.existsSync(directoryPath)) {
+  console.error(`❌ Directory not found: ${directoryPath}`);
+  process.exit(1); // Ensure the parent process receives a non-zero exit code
+} else {
+  console.log(`✅ Directory exists: ${directoryPath}`);
+}
+
+// const filePath = path.join(process.env.PATH_TO_UPLOADED_VIDEOS, fileName);
 
 (async () => {
   console.log("--- 3 inside async function ---");
