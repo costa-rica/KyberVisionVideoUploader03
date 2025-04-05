@@ -8,29 +8,23 @@ const fs = require("fs");
 const fileName = process.argv[2]; // The video file name passed as an argument
 const filePath = path.join(process.env.PATH_TO_UPLOADED_VIDEOS, fileName);
 const directoryPath = path.dirname(filePath);
-console.log("--- 1 inside VIdeo UPloader ---");
-console.log("--- 2 fileName: ", fileName);
+
 if (!fileName) {
-  console.error(
+  throw new Error(
     "❌ No file name provided. Please pass a file name as an argument."
   );
-  process.exit(1);
 }
 
-console.log("--- Checking if directory exists ---");
 if (!fs.existsSync(directoryPath)) {
-  console.error(`❌ Directory not found: ${directoryPath}`);
-  process.exit(1); // Ensure the parent process receives a non-zero exit code
+  const errorMessage = `❌ Directory not found: ${directoryPath}`;
+  console.error(errorMessage);
+  throw new Error(errorMessage);
 } else {
   console.log(`✅ Directory exists: ${directoryPath}`);
 }
 
-// const filePath = path.join(process.env.PATH_TO_UPLOADED_VIDEOS, fileName);
-
 (async () => {
-  console.log("--- 3 inside async function ---");
   try {
-    console.log("--- 4 checking audio ---");
     const hasAudio = await checkAudio(filePath);
 
     if (hasAudio) {
