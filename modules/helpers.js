@@ -11,6 +11,7 @@ const saveVideo = (filePath, targetDirectory) => {
 
   fs.copyFileSync(filePath, destinationPath);
   console.log(`✅ Video saved to ${destinationPath}`);
+  console.log("percent complete: 100");
 };
 
 module.exports = { saveVideo };
