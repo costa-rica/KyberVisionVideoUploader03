@@ -5,7 +5,8 @@ const { processVideo } = require("./modules/processVideo");
 const { saveVideo } = require("./modules/helpers");
 
 const fileName = process.argv[2]; // The video file name passed as an argument
-
+console.log("--- inside VIdeo UPloader ---");
+console.log("--- fileName: ", fileName);
 if (!fileName) {
   console.error(
     "❌ No file name provided. Please pass a file name as an argument."
@@ -16,7 +17,9 @@ if (!fileName) {
 const filePath = path.join(process.env.PATH_TO_UPLOADED_VIDEOS, fileName);
 
 (async () => {
+  console.log("--- inside async function ---");
   try {
+    console.log("--- checking audio ---");
     const hasAudio = await checkAudio(filePath);
 
     if (hasAudio) {
