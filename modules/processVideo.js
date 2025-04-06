@@ -6,10 +6,10 @@ const Video = require("../models/Video");
 const processVideo = (filePath, videoId) => {
   // const outputPath = process.env.PATH_TO_PROCESSED_VIDEOS;
   const fileName = path.basename(filePath);
-  const outputFileName = fileName.replace(/(\.[\w\d_-]+)$/i, "_output.mp4");
+  // const outputFileName = fileName.replace(/(\.[\w\d_-]+)$/i, "_output.mp4");
   const outputFilePath = path.join(
     process.env.PATH_TO_PROCESSED_VIDEOS,
-    outputFileName
+    fileName
   );
 
   if (!fs.existsSync(process.env.PATH_TO_PROCESSED_VIDEOS)) {
