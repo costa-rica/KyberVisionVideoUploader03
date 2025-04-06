@@ -53,6 +53,7 @@ if (!fs.existsSync(directoryPath)) {
         { processingStatus: "processed" },
         { where: { id: videoId } }
       );
+      console.log("percent complete: 100");
     } else {
       console.log("🔇 No audio detected. Processing the video...");
       console.log("percent complete: 20");
