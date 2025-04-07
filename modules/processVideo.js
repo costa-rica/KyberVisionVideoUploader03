@@ -38,13 +38,16 @@ const processVideo = (filePath, videoId) => {
           }
         );
         // delete old video
-        fs.unlinkSync(path.join(process.env.PATH_TO_UPLOADED_VIDEOS, fileName));
+        // fs.unlinkSync(path.join(process.env.PATH_TO_UPLOADED_VIDEOS, fileName));
         console.log("percent complete: 100");
         console.log(`✅ Processed video saved to ${outputFilePath}`);
         // Flush stdout to make sure messages are captured
         process.stdout.write("", () => {
           resolve(outputFilePath);
         });
+      })
+      .on("progress", (data) => {
+        console.log(`percent complete: ${data.percent}`);
       })
       .on("error", (err) => {
         console.error(`❌ Error processing video: ${err.message}`);

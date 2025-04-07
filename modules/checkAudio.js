@@ -12,7 +12,7 @@ const checkAudio = (filePath) => {
         (stream) => stream.codec_type === "audio"
       );
       // ✅ Log progress before resolving the promise
-      console.log("percent complete: 10");
+      // console.log("percent complete: 10");
       console.log(`Audio stream found: ${hasAudioStream}`);
       resolve(hasAudioStream);
     });

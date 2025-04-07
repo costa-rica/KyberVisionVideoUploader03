@@ -8,7 +8,6 @@ sequelize
   .sync()
   .then(async () => {
     console.log("✅ Database connected & synced");
-    // await onStartUpCreateEnvUsers(); // <-- Call function here
   })
   .catch((error) => console.error("❌ Error syncing database:", error));
 
@@ -21,8 +20,7 @@ const Video = require("./models/Video");
 
 const fileName = process.argv[2]; // The video file name passed as an argument
 const videoId = process.argv[3];
-console.log("---> IN KVVIDEO UPLOADER");
-console.log(`Video ID: ${videoId}`);
+console.log(`Processing for Video ID: ${videoId}`);
 const filePath = path.join(process.env.PATH_TO_UPLOADED_VIDEOS, fileName);
 const directoryPath = path.dirname(filePath);
 
@@ -48,7 +46,6 @@ if (!fs.existsSync(directoryPath)) {
       console.log(
         "🔊 The video has sound. Saving to the processed directory..."
       );
-      // saveVideo(filePath, process.env.PATH_TO_PROCESSED_VIDEOS);
       await Video.update(
         { processingStatus: "processed" },
         { where: { id: videoId } }
@@ -56,7 +53,6 @@ if (!fs.existsSync(directoryPath)) {
       console.log("percent complete: 100");
     } else {
       console.log("🔇 No audio detected. Processing the video...");
-      console.log("percent complete: 20");
       await processVideo(filePath, videoId);
     }
 
