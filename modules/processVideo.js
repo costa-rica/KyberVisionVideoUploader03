@@ -39,7 +39,7 @@ const processVideo = (filePath, videoId) => {
         );
         // delete old video
         // fs.unlinkSync(path.join(process.env.PATH_TO_UPLOADED_VIDEOS, fileName));
-        console.log("percent complete: 100");
+        // console.log("percent complete: 100");
         console.log(`✅ Processed video saved to ${outputFilePath}`);
         // Flush stdout to make sure messages are captured
         process.stdout.write("", () => {
@@ -47,7 +47,10 @@ const processVideo = (filePath, videoId) => {
         });
       })
       .on("progress", (data) => {
-        console.log(`percent complete: ${data.percent}`);
+        if (process.send) {
+          // Check if we're in a child process - here we send messages to the JobQueuer03 through the "IPC" channel
+          process.send({ type: "progress", percent: data.percent });
+        }
       })
       .on("error", (err) => {
         console.error(`❌ Error processing video: ${err.message}`);
